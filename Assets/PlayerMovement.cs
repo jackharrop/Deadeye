@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float DodgeDistance;
     private Rigidbody2D _rigidbody;
     private bool CanDoubleJump;
-
+    public GameObject Bullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +51,13 @@ public class PlayerMovement : MonoBehaviour
         {
             _rigidbody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
             CanDoubleJump = false;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Bullet"))
+        {
+            Bullet.gameObject.SetActive(false);
         }
     }
 }
