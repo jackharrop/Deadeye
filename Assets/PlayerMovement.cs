@@ -12,10 +12,15 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private bool CanDoubleJump;
     public GameObject Bullet;
+    public GameObject[] HealthImage;
+    public Sprite[] HealthSprite;
+    private int damage = 0;
+    private int MaxHealth = 3; //Will implement if i add a item to increase max health
     // Start is called before the first frame update
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();   
+
     }
 
     // Update is called once per frame
@@ -53,11 +58,25 @@ public class PlayerMovement : MonoBehaviour
             CanDoubleJump = false;
         }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Bullet"))
+        
+        if (other.gameObject.CompareTag("Bullet"))
         {
+          
+            damage = damage + 1;
+            HealthImage[damage].gameObject.GetComponent<Image>().sprite = HealthSprite[1];
             Bullet.gameObject.SetActive(false);
+        }
+        if (other.gameObject.CompareTag("Heal")) 
+        {
+            HealthImage[damage].gameObject.GetComponent<Image>().sprite = HealthSprite[0];
+            damage = damage - 1;
+        }
+        if (other.gameObject.CompareTag("MoreHealth")) //Will implement if i add a item to increase max health
+        {
+
         }
     }
 }
