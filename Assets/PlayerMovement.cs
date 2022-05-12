@@ -37,12 +37,16 @@ public class PlayerMovement : MonoBehaviour
     {
         var movement = Input.GetAxis("Horizontal");
         transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * speed;
-        animator.SetFloat("Speed", movement);
+        animator.SetFloat("Speed", Mathf.Abs(movement));
 
         if (Input.GetButtonDown("Dodge"))
         {
             _rigidbody.velocity = new Vector2((movement * speed) * DodgeDistance, _rigidbody.velocity.y);
         }
+       
+     
+        
+        
         if (movement > 0)
         {
             gameObject.transform.localScale = new Vector3(4 ,4,4 );
