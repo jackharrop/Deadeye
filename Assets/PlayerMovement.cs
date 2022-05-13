@@ -17,7 +17,12 @@ public class PlayerMovement : MonoBehaviour
     private int damage = 0;
     private float Timer = 0.0f;
     private bool Isdodging = false;
+
+    public bool IsGrounded;
+    public LayerMask ground;
     public BoxCollider2D GroundTouchingBoxcollider;
+
+
     //private int MaxHealth = 3; //Will implement if i add a item to increase max health
     // Start is called before the first frame update
     void Start()
@@ -32,8 +37,17 @@ public class PlayerMovement : MonoBehaviour
         
         Movement();
         Jump();
-        
-        
+        if(IsGrounded)
+        {
+            animator.SetBool("IsJumping" , false);
+            
+        }
+        else
+        {
+            animator.SetBool("IsJumping", true);
+            
+        }
+        IsGrounded = GroundTouchingBoxcollider.IsTouchingLayers(ground);
     }
 
     private void Movement()
@@ -94,6 +108,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+
+
+
+
+
+
         if (Input.GetButtonDown("Jump") && Mathf.Abs(_rigidbody.velocity.y) < 0.001f)
         {
             _rigidbody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);

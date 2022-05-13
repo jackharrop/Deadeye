@@ -1011,6 +1011,10 @@ MonoBehaviour:
   HealthSprite:
   - {fileID: 21300000, guid: d7974e872e879b540812fba37a6d1207, type: 3}
   - {fileID: 21300000, guid: 6980082067cb42f468f2b63de55329cf, type: 3}
+  IsGrounded: 0
+  ground:
+    serializedVersion: 2
+    m_Bits: 8
   GroundTouchingBoxcollider: {fileID: 1254608821}
 --- !u!212 &1254608816
 SpriteRenderer:
@@ -1264,7 +1268,7 @@ GameObject:
   - component: {fileID: 2066322914}
   - component: {fileID: 2066322913}
   - component: {fileID: 2066322915}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
