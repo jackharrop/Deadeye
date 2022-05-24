@@ -10,17 +10,27 @@ public class PlayerMovement : MonoBehaviour
     public float JumpForce = 1;
     public float DodgeDistance;
     private Rigidbody2D _rigidbody;
-    private bool CanDoubleJump;
+    
+
+    public float checkradius;
+    public Transform FeetPos;
+    public LayerMask WhatisGround;
+
+
     public GameObject Bullet;
     public GameObject[] HealthImage;
     public Sprite[] HealthSprite;
+
     private int damage = 0;
     private float Timer = 0.0f;
     private bool Isdodging = false;
 
-    public bool IsGrounded;
-    public LayerMask ground;
-    public BoxCollider2D GroundTouchingBoxcollider;
+    private bool IsGrounded;
+    private float jumptimecounter;
+    public float jumptime;
+    private bool isJumping;
+
+
 
 
     //private int MaxHealth = 3; //Will implement if i add a item to increase max health
@@ -37,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         
         Movement();
         Jump();
-        if(IsGrounded)
+        if(IsGrounded == true)
         {
             animator.SetBool("IsJumping" , false);
             
@@ -47,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsJumping", true);
             
         }
-        IsGrounded = GroundTouchingBoxcollider.IsTouchingLayers(ground);
+      
     }
 
     private void Movement()
@@ -55,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         float movement = Sidetoside();
 
         Dodging(movement);
-        Fliping(movement);
+        
 
     }
 
@@ -64,22 +74,22 @@ public class PlayerMovement : MonoBehaviour
         var movement = Input.GetAxis("Horizontal");
         transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * speed;
         animator.SetFloat("Speed", Mathf.Abs(movement));
-        return movement;
-    }
-
-    private void Fliping(float movement)
-    {
         if (movement > 0)
         {
-           
-            gameObject.transform.localScale = new Vector3(4, 4, 4);
+            transform.eulerAngles = new Vector3(0, 0, 0);
         }
-        if (movement < 0)
+        else if (movement < 0)
         {
-           
-            gameObject.transform.localScale = new Vector3(-4, 4, 4);
+            transform.eulerAngles = new Vector3(0, 180, 0);
         }
+        return movement;
+
+       
+
+
     }
+
+   
 
     private void Dodging(float movement)
     {
@@ -113,19 +123,37 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+        IsGrounded = Physics2D.OverlapCircle(FeetPos.position, checkradius, WhatisGround);
+        
 
-
-
-        if (Input.GetButtonDown("Jump") && Mathf.Abs(_rigidbody.velocity.y) < 0.001f)
+        if (Input.GetButtonDown("Jump") && Mathf.Abs(_rigidbody.velocity.y) < 0.001f && IsGrounded == true)
         {
-            _rigidbody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
-            CanDoubleJump = true;
+            _rigidbody.velocity = Vector2.up * JumpForce;
+            jumptimecounter = jumptime;
+            isJumping = true;
+
+            //_rigidbody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
+            //CanDoubleJump = true;
         }
-        else if (CanDoubleJump && Input.GetButtonDown("Jump"))
+        if (Input.GetKey(KeyCode.Space))
         {
-            _rigidbody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
-            CanDoubleJump = false;
+            if(jumptimecounter > 0 && isJumping == true)
+            {
+                _rigidbody.velocity = Vector2.up * JumpForce;
+                jumptimecounter -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+          
+
         }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)

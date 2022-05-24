@@ -941,6 +941,7 @@ MonoBehaviour:
   offset: 0
   Projectile: {fileID: 1635533326873198672, guid: f16d7620b9a8ec947ba009838cc754ae, type: 3}
   Shotpoint: {fileID: 707824227}
+  PlayerRotation: {fileID: 1254608813}
 --- !u!1 &1155726233
 GameObject:
   m_ObjectHideFlags: 0
