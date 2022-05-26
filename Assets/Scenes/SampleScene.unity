@@ -832,14 +832,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707824226}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.1892855, y: 1.2857146, z: 0.016946027}
+  m_LocalRotation: {x: 0, y: -0.0041888487, z: 0, w: 0.9999913}
+  m_LocalPosition: {x: 2.227, y: 1.3, z: 0.017}
   m_LocalScale: {x: 3.5714288, y: 3.571429, z: 3.5714288}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1085939892}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.48, z: 0}
 --- !u!1 &1085939891
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,7 +867,7 @@ Transform:
   m_GameObject: {fileID: 1085939891}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.092, y: -0.063, z: -0.3460562}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
+  m_LocalScale: {x: 0.07, y: 0.07, z: 1.3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 707824227}
@@ -942,6 +942,7 @@ MonoBehaviour:
   Projectile: {fileID: 1635533326873198672, guid: f16d7620b9a8ec947ba009838cc754ae, type: 3}
   Shotpoint: {fileID: 707824227}
   PlayerRotation: {fileID: 1254608813}
+  ShotpointFlip: {fileID: 707824226}
 --- !u!1 &1155726233
 GameObject:
   m_ObjectHideFlags: 0
