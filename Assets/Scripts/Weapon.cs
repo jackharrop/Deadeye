@@ -23,25 +23,24 @@ public class Weapon : MonoBehaviour
         float RotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, RotationZ + offset);
 
-        //Vector3 localscale = Vector3.one;
+        Vector3 localscale = Vector3.one;
         if (RotationZ > 90 || RotationZ <-90)
         {
+            localscale.x = +0.07f;
+            localscale.y = -0.07f;
+            localscale.z = +0.07f;
 
-            gameObject.GetComponent<SpriteRenderer>().flipY = true;
-            ShotpointFlip.transform.position = new Vector3(0f, 3.571429f, 0f);
-           // localscale.y = -0.07f;
-            //localscale.x = -0.07f;
+
+
 
         }
         else
         {
-            gameObject.GetComponent<SpriteRenderer>().flipY = false;
-            ShotpointFlip.transform.localScale = new Vector3(0f, 3.571429f, 0f);
-            //localscale.y = +0.07f;
-            //localscale.x = +0.07f;
-
+            localscale.x = +0.07f;
+            localscale.y = +0.07f;
+            localscale.z = +0.07f;
         }
-        //transform.localScale = localscale;
+        transform.localScale = localscale;
 
         if (Input.GetMouseButtonDown(0))
         {
