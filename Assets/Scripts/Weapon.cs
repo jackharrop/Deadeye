@@ -29,6 +29,7 @@ public class Weapon : MonoBehaviour
             localscale.x = +0.07f;
             localscale.y = -0.07f;
             localscale.z = +0.07f;
+            offset = 6;
 
 
 
@@ -39,12 +40,14 @@ public class Weapon : MonoBehaviour
             localscale.x = +0.07f;
             localscale.y = +0.07f;
             localscale.z = +0.07f;
+            offset = -6;
         }
         transform.localScale = localscale;
 
         if (Input.GetMouseButtonDown(0))
         {
             Instantiate(Projectile, Shotpoint.position, transform.rotation );
+            
         }
 
      
