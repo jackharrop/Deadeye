@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
     public float speed;
     public float lifetime;
 
-    public GameObject DestroyEffect;
+    public Animatior DestroyEffect;
     // Start is called before the first frame update
     void Start()
     {

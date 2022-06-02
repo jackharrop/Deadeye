@@ -99,4 +99,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   lifetime: 0.5
-  DestroyEffect: {fileID: 753205403409926919, guid: 526982ddb0404d24a89d3a0b17f539c2, type: 3}
+  DestroyEffect: {fileID: 0}
