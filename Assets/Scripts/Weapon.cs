@@ -9,6 +9,8 @@ public class Weapon : MonoBehaviour
     public Transform Shotpoint;
     public GameObject PlayerRotation;
     public GameObject ShotpointFlip;
+    public bool CanShoot = true;
+    public float DelayinSecounds;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,11 +48,25 @@ public class Weapon : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(Projectile, Shotpoint.position, transform.rotation );
+
+            if(CanShoot == true)
+            {
+                Instantiate(Projectile, Shotpoint.position, transform.rotation);
+                CanShoot = false;
+                StartCoroutine(Shootdelay());
+            }
+           
+
+
             
         }
 
      
 
+    }
+    IEnumerator Shootdelay()
+    {
+        yield return new WaitForSeconds(DelayinSecounds);
+        CanShoot = true;
     }
 }
