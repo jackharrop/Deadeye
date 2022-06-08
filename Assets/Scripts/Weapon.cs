@@ -46,7 +46,7 @@ public class Weapon : MonoBehaviour
         }
         transform.localScale = localscale;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
 
             if(CanShoot == true)
