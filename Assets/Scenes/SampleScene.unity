@@ -136,11 +136,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2403967095704667409, guid: f29c0f604a55fc14da1a36a376c7099a, type: 3}
       propertyPath: m_Mass
-      value: 0.0001
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2403967095704667409, guid: f29c0f604a55fc14da1a36a376c7099a, type: 3}
       propertyPath: m_AngularDrag
-      value: 0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 2403967095704667409, guid: f29c0f604a55fc14da1a36a376c7099a, type: 3}
       propertyPath: m_Constraints
@@ -790,7 +790,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 787470931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.22, y: -1.65, z: -1.5102623}
+  m_LocalPosition: {x: 2.22, y: -2.61, z: -1.5102623}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
