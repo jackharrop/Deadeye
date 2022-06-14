@@ -30,6 +30,7 @@ public class Enemy1 : MonoBehaviour
     public bool followEnabled = true;
     public bool jumpEnabled = true;
     public bool directionLookEnabled = true;
+    public Animator animator;
 
     private Path path;
     private int CurrentWaypoint = 0;
@@ -95,7 +96,7 @@ public class Enemy1 : MonoBehaviour
         // See if colliding with anything
         Vector3 startOffset = transform.position - new Vector3(0f, GetComponent<Collider2D>().bounds.extents.y + JumpCheckOffset);
         //isGrounded = Physics2D.Raycast(startOffset, -Vector3.up, 0.05f);
-        isGrounded = Physics2D.OverlapCircle(FeetPos.position, checkradius, WhatisGround);
+       
 
         //Direction Calculation
         Vector2 direction = ((Vector2)path.vectorPath[CurrentWaypoint] - rb.position).normalized;
@@ -153,6 +154,14 @@ public class Enemy1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        isGrounded = Physics2D.OverlapCircle(FeetPos.position, checkradius, WhatisGround);
+        if (isGrounded == true)
+        {
+            animator.SetBool("IsJumping", false);
+        }
+        else
+        {
+            animator.SetBool("IsJumping", true);
+        }
     }
 }
