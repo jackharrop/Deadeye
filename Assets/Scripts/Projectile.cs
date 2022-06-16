@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [Header("Physics")]
     public float speed;
     public float lifetime;
     public float DestroyTimer;
     
     public Rigidbody2D rb;
 
+    [Header("Effect")]
     public GameObject DestroyEffect;
     // Start is called before the first frame update
     void Start()
@@ -22,11 +24,14 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //sends the projectile in the direction of where the weapon was pointing at on click
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
     void DestroyProjectile()
     {
+        //Spawns the destroy effect exactly where the bullets last position
         Instantiate(DestroyEffect, transform.position, Quaternion.identity);
+        //destroys bullet
         Destroy(gameObject);
     }
     private void OnTriggerEnter2D(Collider2D hitinfo)
@@ -37,7 +42,7 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-
+            //Damages enemy
             Enemy1 enemy1 = hitinfo.GetComponent<Enemy1>();
             if (enemy1 != null)
             {
@@ -45,7 +50,7 @@ public class Projectile : MonoBehaviour
             }
 
 
-
+            //Spawns the destroy effect when hitting enemy
             Debug.Log(hitinfo.name);
             Instantiate(DestroyEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);

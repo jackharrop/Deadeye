@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+
+    [Header("Custom Options")]
     public float offset;
+    public float DelayinSecounds;
+
+    [Header("GameObjects")]
     public GameObject Projectile;
     public Transform Shotpoint;
     public GameObject PlayerRotation;
     public GameObject ShotpointFlip;
-    public bool CanShoot = true;
-    public float DelayinSecounds;
+
+    private bool CanShoot = true;
+
     // Start is called before the first frame update
     void Start()
     {

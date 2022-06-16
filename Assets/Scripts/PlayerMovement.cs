@@ -5,22 +5,30 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Animator animator;
+    [Header("Physics")]
     public float speed;
     public float JumpForce = 1;
     public float DodgeDistance;
+
+    [Header("Animator")]
+    public Animator animator;
+
     private Rigidbody2D _rigidbody;
     
-
+    [Header("What is ground")]
     public float checkradius;
     public Transform FeetPos;
     public LayerMask WhatisGround;
 
 
-    public GameObject Bullet;
+    [Header("Health")]
     public GameObject[] HealthImage;
     public Sprite[] HealthSprite;
 
+    
+    
+    
+    
     private int damage = 0;
     private float Timer = 0.0f;
     private bool Isdodging = false;
@@ -47,16 +55,7 @@ public class PlayerMovement : MonoBehaviour
         
         Movement();
         Jump();
-        if(IsGrounded == true)
-        {
-            animator.SetBool("IsJumping" , false);
-            
-        }
-        else
-        {
-            animator.SetBool("IsJumping", true);
-            
-        }
+      
       
     }
 
@@ -71,9 +70,15 @@ public class PlayerMovement : MonoBehaviour
 
     private float Sidetoside()
     {
+        //Input on horizontal axis
         var movement = Input.GetAxis("Horizontal");
+        //Moves player side to side
         transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * speed;
+        //Used for animation and records the speed of the player while always keeping the value positive
         animator.SetFloat("Speed", Mathf.Abs(movement));
+
+
+        //Fliping
         if (movement > 0)
         {
             transform.eulerAngles = new Vector3(0, 0, 0);
@@ -105,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         if (Isdodging == true)
         {
             Timer += Time.deltaTime;
-            if (Timer > 1.5f)
+            if (Timer > 1.4f)
             {
                 animator.SetBool(("IsDodging"), false);
                 Isdodging = false;
@@ -122,9 +127,9 @@ public class PlayerMovement : MonoBehaviour
     {
 
 
-
+        //Checks if player is touching ground through empty game object thats given a radius 
         IsGrounded = Physics2D.OverlapCircle(FeetPos.position, checkradius, WhatisGround);
-        
+
 
         if (Input.GetButtonDown("Jump") && Mathf.Abs(_rigidbody.velocity.y) < 0.001f && IsGrounded == true)
         {
@@ -132,12 +137,11 @@ public class PlayerMovement : MonoBehaviour
             jumptimecounter = jumptime;
             isJumping = true;
 
-            //_rigidbody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
-            //CanDoubleJump = true;
+
         }
         if (Input.GetKey(KeyCode.Space))
         {
-            if(jumptimecounter > 0 && isJumping == true)
+            if (jumptimecounter > 0 && isJumping == true)
             {
                 _rigidbody.velocity = Vector2.up * JumpForce;
                 jumptimecounter -= Time.deltaTime;
@@ -146,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 isJumping = false;
             }
-          
+
 
         }
         if (Input.GetKeyUp(KeyCode.Space))
@@ -154,26 +158,34 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
         }
 
+        JumpAnimator();
+
+    }
+
+    private void JumpAnimator()
+    {
+        if (IsGrounded == true)
+        {
+            animator.SetBool("IsJumping", false);
+
+        }
+        else
+        {
+            animator.SetBool("IsJumping", true);
+
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        //Compares the tag of another object and if it matches the player will take damage
         if (other.gameObject.CompareTag("Bullet"))
         {
           
             damage = damage + 1;
             HealthImage[damage].gameObject.GetComponent<Image>().sprite = HealthSprite[1];
-            Bullet.gameObject.SetActive(false);
+           
         }
-        if (other.gameObject.CompareTag("Heal")) 
-        {
-            HealthImage[damage].gameObject.GetComponent<Image>().sprite = HealthSprite[0];
-            damage = damage - 1;
-        }
-        //if (other.gameObject.CompareTag("MoreHealth")) //Will implement if i add a item to increase max health
-        //{
-
-       // }
+       
     }
 }

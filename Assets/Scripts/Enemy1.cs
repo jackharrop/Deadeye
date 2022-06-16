@@ -31,7 +31,9 @@ public class Enemy1 : MonoBehaviour
     public bool jumpEnabled = true;
     public bool directionLookEnabled = true;
     public Animator animator;
+    public GameObject DeathEffect;
 
+    private float Speed;
     private Path path;
     private int CurrentWaypoint = 0;
     bool isGrounded = false;
@@ -52,6 +54,7 @@ public class Enemy1 : MonoBehaviour
     }
     void Die()
     {
+        Instantiate(DeathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
@@ -69,6 +72,7 @@ public class Enemy1 : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //when player is in distance the path finding will be enabled
         if (TargetInDistance() && followEnabled)
         {
             PathFollow();
@@ -93,9 +97,9 @@ public class Enemy1 : MonoBehaviour
         {
             return;
         }
-        // See if colliding with anything
-        Vector3 startOffset = transform.position - new Vector3(0f, GetComponent<Collider2D>().bounds.extents.y + JumpCheckOffset);
-        //isGrounded = Physics2D.Raycast(startOffset, -Vector3.up, 0.05f);
+       
+        
+       
        
 
         //Direction Calculation
@@ -108,7 +112,7 @@ public class Enemy1 : MonoBehaviour
             if(direction.y > JumpNodeHeightRequirement)
             {
                 rb.velocity = Vector2.up * JumpForce;
-                //rb.AddForce(Vector2.up * speed * JumpModifier);
+                
             }
            
            
@@ -154,7 +158,15 @@ public class Enemy1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //used for the animation of the enemy
+        Speed = rb.velocity.magnitude;
+        animator.SetFloat("Speeds", Mathf.Abs(Speed));
+
+
+        //checks if grounded
         isGrounded = Physics2D.OverlapCircle(FeetPos.position, checkradius, WhatisGround);
+
+        //used for jump animation for animation
         if (isGrounded == true)
         {
             animator.SetBool("IsJumping", false);
@@ -164,4 +176,5 @@ public class Enemy1 : MonoBehaviour
             animator.SetBool("IsJumping", true);
         }
     }
+    
 }
