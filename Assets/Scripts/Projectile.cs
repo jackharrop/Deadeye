@@ -51,6 +51,7 @@ public class Projectile : MonoBehaviour
 
 
             //Spawns the destroy effect when hitting enemy
+            Debug.Log("hit");
             Debug.Log(hitinfo.name);
             Instantiate(DestroyEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
